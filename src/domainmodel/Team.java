@@ -17,7 +17,7 @@ public class Team implements Serializable {
 	@Column(name = "id_team", unique = true)
 	private int id;
 
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
 
 	public int getId() {

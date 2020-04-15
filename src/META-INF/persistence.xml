@@ -8,6 +8,7 @@
 		<persistence-unit name="livetransmission">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>domainmodel.Team</class>
+		<class>domainmodel.Match</class>
 		<properties>
 			<property name="hibernate.connection.username" value="ms"/>
 			<property name="hibernate.connection.password" value="P@ssw0rd"/>

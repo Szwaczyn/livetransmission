@@ -32,6 +32,13 @@ public class Match implements Serializable {
 
 	@Column(name = "finished")
 	private boolean finished;
+	
+	public Match() {
+		this.started = false;
+		this.finished = false;
+		this.scoreAway = 0;
+		this.scoreHome = 0;
+	}
 
 	public int getId() {
 		return id;
@@ -55,14 +62,6 @@ public class Match implements Serializable {
 
 	public void setScoreAway(int scoreAway) {
 		this.scoreAway = scoreAway;
-	}
-
-	public Team getHome_team() {
-		return homeTeam;
-	}
-
-	public void setHome_team(Team home_team) {
-		this.homeTeam = home_team;
 	}
 
 	public Team getHomeTeam() {

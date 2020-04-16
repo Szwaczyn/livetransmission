@@ -32,7 +32,20 @@ public class Main {
 		try {
 			action = Integer.parseInt(in.nextLine());
 			if(action != exitCode) {
+				switch(action) {
 				
+					case 1:{
+						System.out.println("Podaj nazwê dru¿yny: ");
+						String newNameOfTeam = in.nextLine();
+						
+						Team newTeam = new Team();
+						newTeam.setName(newNameOfTeam);
+						teamDAO.newTeam(newTeam);
+						
+						System.out.println("\nUtworzono now¹ dru¿ynê o nazwie " + newTeam.getName() + ".");
+					}break;
+				
+				}
 			}
 		}catch(Exception e) {
 			action = 0;
@@ -42,6 +55,7 @@ public class Main {
 		} while (action != exitCode);
 
 		in.close();
+		context.close();
 	}
 	
 	public static void showMenu() {

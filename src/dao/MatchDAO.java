@@ -25,20 +25,25 @@ public class MatchDAO implements IMatchDAO {
 	
 	@Override
 	public List<Match> getMatch() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Match> matches = this.em.createQuery("SELECT m FROM Match m")
+				.getResultList();
+		return matches;
 	}
 
 	@Override
 	public Match getMatch(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Match match = (Match)this.em.createQuery("SELECT m FROM Match m WHERE id = :id")
+				.setParameter("id", id)
+				.getSingleResult();
+		return match;
 	}
 
 	@Override
-	public Match getMatch(Team team) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Match> getMatch(Team team) {
+		List<Match> matches = this.em.createQuery("SELECT m FROM Match m WHERE homeTeam = :team OR awayTeam = :team")
+				.setParameter("team", team)
+				.getResultList();
+		return matches;
 	}
 
 	@Override

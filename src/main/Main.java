@@ -12,17 +12,17 @@ import org.springframework.context.annotation.Configuration;
 import dao.TeamDAO;
 import domainmodel.Team;
 import interfaces.IDatabase;
-import interfaces.ITeam;
+import interfaces.ITeamDAO;
 import utils.DBConfig;
 
 public class Main {
 
-	private static int exitCode = 2;
+	private static int exitCode = 3;
 	
 	public static void main(String[] args) {
 		
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(utils.Configuration.class);
-		ITeam teamDAO = (ITeam)context.getBean(TeamDAO.class);
+		ITeamDAO teamDAO = (ITeamDAO)context.getBean(TeamDAO.class);
 		
 		Scanner in = new Scanner(System.in);
 		int action;
@@ -42,13 +42,19 @@ public class Main {
 						newTeam.setName(newNameOfTeam);
 						teamDAO.newTeam(newTeam);
 						
+
 						System.out.println("\nUtworzono now¹ dru¿ynê o nazwie " + newTeam.getName() + ".");
+					}break;
+					case 2:{
+						System.out.println(teamDAO.getTeam(1).getName());
+						
 					}break;
 				
 				}
 			}
 		}catch(Exception e) {
 			action = 0;
+			e.printStackTrace();
 			System.out.println("Podaj prawid³ow¹ wartoœæ");
 		}
 		
@@ -60,6 +66,7 @@ public class Main {
 	
 	public static void showMenu() {
 		System.out.println("1. Dodaj dru¿yne");
-		System.out.println("2. Wyjœcie");
+		System.out.println("2. Poka¿ dru¿yne");
+		System.out.println("3. Wyjœcie");
 	}
 }

@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -8,10 +10,10 @@ import org.springframework.stereotype.Component;
 
 import domainmodel.Team;
 import interfaces.IDatabase;
-import interfaces.ITeam;
+import interfaces.ITeamDAO;
 
 @Component
-public class TeamDAO implements ITeam{
+public class TeamDAO implements ITeamDAO{
 
 	private EntityManager em;
 	
@@ -20,13 +22,17 @@ public class TeamDAO implements ITeam{
 	}
 	
 	@Override
-	public ITeam getTeam() {
-		// TODO Auto-generated method stub
-		return null;
+	public Team getTeam(int id) {
+		
+		Team resultTeam = (Team)this.em.createQuery("SELECT t FROM Team t WHERE t.id = :id")
+				.setParameter("id", id)
+				.getSingleResult();
+	
+		return resultTeam;
 	}
 
 	@Override
-	public String getName() {
+	public Team getTeam(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}

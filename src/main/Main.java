@@ -17,20 +17,35 @@ import utils.DBConfig;
 
 public class Main {
 
+	private static int exitCode = 2;
+	
 	public static void main(String[] args) {
 		
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(utils.Configuration.class);
 		ITeam teamDAO = (ITeam)context.getBean(TeamDAO.class);
 		
 		Scanner in = new Scanner(System.in);
-		String newNameTeam = in.nextLine();
+		int action;
+		do {
+		showMenu();
 		
-		Team newTeam = new Team();
-		newTeam.setName(newNameTeam);
+		try {
+			action = Integer.parseInt(in.nextLine());
+			if(action != exitCode) {
+				
+			}
+		}catch(Exception e) {
+			action = 0;
+			System.out.println("Podaj prawid³ow¹ wartoœæ");
+		}
 		
-		teamDAO.newTeam(newTeam);
-		
+		} while (action != exitCode);
+
 		in.close();
 	}
-
+	
+	public static void showMenu() {
+		System.out.println("1. Dodaj dru¿yne");
+		System.out.println("2. Wyjœcie");
+	}
 }

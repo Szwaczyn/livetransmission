@@ -10,6 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Configuration;
 
 import dao.TeamDAO;
+import domainmodel.Team;
 import interfaces.IDatabase;
 import interfaces.ITeam;
 import utils.DBConfig;
@@ -19,13 +20,16 @@ public class Main {
 	public static void main(String[] args) {
 		
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(utils.Configuration.class);
-		ITeam team = (ITeam)context.getBean(TeamDAO.class);
-		
-		System.out.println(team.newTeam("ok"));
+		ITeam teamDAO = (ITeam)context.getBean(TeamDAO.class);
 		
 		Scanner in = new Scanner(System.in);
-		String s = in.nextLine();
-		System.out.println(s);
+		String newNameTeam = in.nextLine();
+		
+		Team newTeam = new Team();
+		newTeam.setName(newNameTeam);
+		
+		teamDAO.newTeam(newTeam);
+		
 		in.close();
 	}
 

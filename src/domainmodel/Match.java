@@ -19,6 +19,14 @@ public class Match implements Serializable {
 	@Column(name = "score_away")
 	private int scoreAway;
 
+	@ManyToOne
+	@JoinColumn(name = "home_team")
+	private Team homeTeam;
+	
+	@ManyToOne
+	@JoinColumn(name = "away_team")
+	private Team awayTeam;
+
 	public int getId() {
 		return id;
 	}
@@ -42,6 +50,29 @@ public class Match implements Serializable {
 	public void setScoreAway(int scoreAway) {
 		this.scoreAway = scoreAway;
 	}
-	
+
+	public Team getHome_team() {
+		return homeTeam;
+	}
+
+	public void setHome_team(Team home_team) {
+		this.homeTeam = home_team;
+	}
+
+	public Team getHomeTeam() {
+		return homeTeam;
+	}
+
+	public void setHomeTeam(Team homeTeam) {
+		this.homeTeam = homeTeam;
+	}
+
+	public Team getAwayTeam() {
+		return awayTeam;
+	}
+
+	public void setAwayTeam(Team awayTeam) {
+		this.awayTeam = awayTeam;
+	}
 	
 }

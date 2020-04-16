@@ -1,11 +1,14 @@
 package domainmodel;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +22,10 @@ public class Team implements Serializable {
 
 	@Column(name = "name", nullable = false)
 	private String name;
+	
+	@OneToMany
+	@JoinColumn(name = "home_team")
+	private List<Match> matches;
 
 	public int getId() {
 		return id;
@@ -34,6 +41,14 @@ public class Team implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Match> getMatches() {
+		return matches;
+	}
+
+	public void setMatches(List<Match> matches) {
+		this.matches = matches;
 	}
 
 }

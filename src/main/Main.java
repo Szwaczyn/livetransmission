@@ -6,12 +6,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import interfaces.IDatabase;
+import utils.DBConfig;
+
 public class Main {
 
 	public static void main(String[] args) {
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("livetransmission");
-		EntityManager em = emf.createEntityManager();
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DBConfig.class);
+		IDatabase db = (IDatabase)context.getBean(DBConfig.class);
+		
 		
 		Scanner in = new Scanner(System.in);
 		

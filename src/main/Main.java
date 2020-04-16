@@ -46,7 +46,7 @@ public class Main {
 						System.out.println("\nUtworzono now¹ dru¿ynê o nazwie " + newTeam.getName() + ".");
 					}break;
 					case 2:{
-						System.out.println(teamDAO.getTeam(1).getName());
+						System.out.println(teamDAO.getTeam("Legia").getName());
 						
 					}break;
 				

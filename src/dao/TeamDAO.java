@@ -33,8 +33,12 @@ public class TeamDAO implements ITeamDAO{
 
 	@Override
 	public Team getTeam(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Team resultTeam = (Team)this.em.createQuery("SELECT t FROM Team t WHERE t.name = :name")
+				.setParameter("name", name)
+				.getSingleResult();
+		
+		return resultTeam;
 	}
 
 	@Override

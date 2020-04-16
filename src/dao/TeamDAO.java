@@ -40,6 +40,13 @@ public class TeamDAO implements ITeamDAO{
 		
 		return resultTeam;
 	}
+	
+	@Override
+	public List<Team> getTeam() {
+		List<Team> teams = this.em.createQuery("SELECT t FROM Team t").getResultList();
+		return teams;
+	}
+
 
 	@Override
 	public boolean newTeam(Team team) {
@@ -55,5 +62,4 @@ public class TeamDAO implements ITeamDAO{
 			return false;
 		}
 	}
-
 }

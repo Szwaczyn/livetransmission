@@ -22,10 +22,16 @@ public class Match implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "home_team")
 	private Team homeTeam;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "away_team")
 	private Team awayTeam;
+
+	@Column(name = "started")
+	private boolean started;
+
+	@Column(name = "finished")
+	private boolean finished;
 
 	public int getId() {
 		return id;
@@ -74,5 +80,21 @@ public class Match implements Serializable {
 	public void setAwayTeam(Team awayTeam) {
 		this.awayTeam = awayTeam;
 	}
-	
+
+	public boolean isStarted() {
+		return started;
+	}
+
+	public void setStarted(boolean started) {
+		this.started = started;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
 }

@@ -1,5 +1,6 @@
 package main;
 
+import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
@@ -46,8 +47,15 @@ public class Main {
 						System.out.println("\nUtworzono now¹ dru¿ynê o nazwie " + newTeam.getName() + ".");
 					}break;
 					case 2:{
-						System.out.println(teamDAO.getTeam("Legia").getName());
+						List<Team> teams = teamDAO.getTeam();
+						int iterator = 1;
 						
+						System.out.println("");
+						for(Team t : teams) {
+							System.out.println(iterator + ". " + t.getName());
+							iterator++;
+						}
+						System.out.println("");
 					}break;
 				
 				}

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import dao.CommentDAO;
+import dao.MatchDAO;
 import domainmodel.Comment;
 import domainmodel.Match;
 import interfaces.IMatchExecution;
@@ -21,7 +22,7 @@ public class ExecutionManager implements IMatchExecution {
 
 	private Match match;
 	private AnnotationConfigApplicationContext context;
-	
+
 	@Override
 	public void beginMatch() {
 
@@ -48,25 +49,43 @@ public class ExecutionManager implements IMatchExecution {
 
 				case 1: {
 					showComment();
-					
+
 					CommentDAO commentDAO = context.getBean(CommentDAO.class);
 					int code = exitCode - 100000;
 					String content;
 					do {
 						content = in.nextLine();
-						
+
 						try {
-						 	code = Integer.parseInt(content);
-						}catch(Exception e) {}
-						
-						if(code != exitCode && content != null) {
+							code = Integer.parseInt(content);
+							if (code == 1) {
+								match.setScoreHome(match.getScoreHome() + 1);
+								content = "Gol zdobyty przez dru¿yne " + match.getHomeTeam().getName();
+								System.out.println(content);
+							} else if (code == 2) {
+								match.setScoreAway(match.getScoreAway() + 1);
+								content = "Gol zdobyty przez dru¿yne " + match.getAwayTeam().getName();
+								System.out.println(content);
+							}
+						} catch (Exception e) {
+						}
+
+						if (code != exitCode && content != null) {
 							Comment comment = new Comment();
 							comment.setMatch(this.match);
 							comment.setContent(content);
-							
+
 							commentDAO.addComment(comment);
+
+							content = null;
 						}
 					} while (code != exitCode);
+				}
+					break;
+				case 2: {
+					MatchDAO matchDAO = (MatchDAO)context.getBean(MatchDAO.class);
+					matchDAO.finishMatch(match);
+					action = exitCode;
 				}
 					break;
 				}
@@ -80,7 +99,8 @@ public class ExecutionManager implements IMatchExecution {
 
 	private void showMenu() {
 		System.out.println("1. Tryb komentowania");
-		System.out.println(exitCode + ". Tryb komentowania");
+		System.out.println("2. Zakoñcz");
+		System.out.println(exitCode + ". Wyjœcie");
 	}
 
 	public Match getMatch() {
@@ -90,12 +110,12 @@ public class ExecutionManager implements IMatchExecution {
 	public void setMatch(Match match) {
 		this.match = match;
 	}
-	
+
 	private void showComment() {
 		CommentDAO commentDAO = context.getBean(CommentDAO.class);
 		List<Comment> comments = commentDAO.getComment(match);
-		
-		for(Comment c : comments) {
+
+		for (Comment c : comments) {
 			System.out.println(c.getMinute() + ". " + c.getContent());
 		}
 	}
@@ -104,5 +124,4 @@ public class ExecutionManager implements IMatchExecution {
 		this.context = context;
 	}
 
-	
 }

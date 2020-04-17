@@ -20,22 +20,20 @@ public class MatchDAO implements IMatchDAO {
 
 	private AnnotationConfigApplicationContext context;
 	private EntityManager em;
-	
+
 	public MatchDAO(IDatabase db) {
 		this.em = db.getEntityManager();
 	}
-	
+
 	@Override
 	public List<Match> getMatch() {
-		List<Match> matches = this.em.createQuery("SELECT m FROM Match m")
-				.getResultList();
+		List<Match> matches = this.em.createQuery("SELECT m FROM Match m").getResultList();
 		return matches;
 	}
 
 	@Override
 	public Match getMatch(int id) {
-		Match match = (Match)this.em.createQuery("SELECT m FROM Match m WHERE id = :id")
-				.setParameter("id", id)
+		Match match = (Match) this.em.createQuery("SELECT m FROM Match m WHERE id = :id").setParameter("id", id)
 				.getSingleResult();
 		return match;
 	}
@@ -43,8 +41,7 @@ public class MatchDAO implements IMatchDAO {
 	@Override
 	public List<Match> getMatch(Team team) {
 		List<Match> matches = this.em.createQuery("SELECT m FROM Match m WHERE homeTeam = :team OR awayTeam = :team")
-				.setParameter("team", team)
-				.getResultList();
+				.setParameter("team", team).getResultList();
 		return matches;
 	}
 
@@ -53,15 +50,15 @@ public class MatchDAO implements IMatchDAO {
 		Match newMatch = new Match();
 		newMatch.setAwayTeam(awayTeam);
 		newMatch.setHomeTeam(homeTeam);
-		
+
 		EntityTransaction et = em.getTransaction();
-		
+
 		try {
 			et.begin();
 			em.persist(newMatch);
 			et.commit();
 			return newMatch;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			et.rollback();
 			e.printStackTrace();
 			return null;
@@ -69,9 +66,20 @@ public class MatchDAO implements IMatchDAO {
 	}
 
 	@Override
-	public boolean finishMatch() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean finishMatch(Match match) {
+		match.setFinished(true);
+		EntityTransaction et = em.getTransaction();
+		
+		try {
+			et.begin();
+			em.persist(match);
+			et.commit();
+			return true;
+		} catch (Exception e) {
+			et.rollback();
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
@@ -89,11 +97,10 @@ public class MatchDAO implements IMatchDAO {
 			started = true;
 			finished = false;
 		}
-		
-		List<Match> matches = this.em.createQuery("SELECT m FROM Match m WHERE m.started = :started AND m.finished = :finished")
-				.setParameter("finished", finished)
-				.setParameter("started", started)
-				.getResultList();
+
+		List<Match> matches = this.em
+				.createQuery("SELECT m FROM Match m WHERE m.started = :started AND m.finished = :finished")
+				.setParameter("finished", finished).setParameter("started", started).getResultList();
 		return matches;
 	}
 

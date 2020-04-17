@@ -26,6 +26,7 @@ public class Main {
 		IMatchDAO matchDAO = (IMatchDAO) context.getBean(MatchDAO.class);
 		IMatchExecution execman = (IMatchExecution) context.getBean(ExecutionManager.class);
 		execman.setContext(context);
+		
 		Scanner in = new Scanner(System.in);
 		int action;
 		do {

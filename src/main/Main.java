@@ -11,6 +11,7 @@ import domainmodel.Match;
 import domainmodel.Team;
 import interfaces.IMatchDAO;
 import interfaces.ITeamDAO;
+import utils.Status;
 
 public class Main {
 
@@ -45,12 +46,13 @@ public class Main {
 						break;
 
 					case 2: {
-						List<Team> teams = teamDAO.getTeam();
+						List<Match> matches = matchDAO.getMatch(Status.notStarted);
+								
 						int iterator = 1;
 
 						System.out.println("");
-						for (Team t : teams) {
-							System.out.println(iterator + ". " + t.getName());
+						for (Match m : matches) {
+							System.out.println(m.getHomeTeam().getName() + " - " + m.getAwayTeam().getName());
 							iterator++;
 						}
 						System.out.println("");
@@ -100,8 +102,9 @@ public class Main {
 
 	public static void showMenu() {
 		System.out.println("1. Dodaj dru¿yne");
-		System.out.println("2. Poka¿ dru¿yny");
+		System.out.println("2. Poka¿ zaplanowane mecze");
 		System.out.println("3. Zaplanuj mecz");
+		System.out.println("4. Rozpocznij mecz");
 		System.out.println("9. Wyjœcie");
 	}
 }

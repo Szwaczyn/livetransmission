@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.transaction.Transaction;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 import domainmodel.Match;
@@ -17,6 +18,7 @@ import utils.Status;
 @Component
 public class MatchDAO implements IMatchDAO {
 
+	private AnnotationConfigApplicationContext context;
 	private EntityManager em;
 	
 	public MatchDAO(IDatabase db) {
@@ -93,6 +95,11 @@ public class MatchDAO implements IMatchDAO {
 				.setParameter("started", started)
 				.getResultList();
 		return matches;
+	}
+
+	@Override
+	public void setContext(AnnotationConfigApplicationContext context) {
+		this.context = context;
 	}
 
 }

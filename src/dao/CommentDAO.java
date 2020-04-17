@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 import domainmodel.Comment;
@@ -15,6 +16,7 @@ import interfaces.IDatabase;
 @Component
 public class CommentDAO implements ICommentDAO {
 
+	private AnnotationConfigApplicationContext context;
 	private EntityManager em;
 
 	public CommentDAO(IDatabase db) {
@@ -43,5 +45,11 @@ public class CommentDAO implements ICommentDAO {
 		
 		return comments;
 	}
+
+	@Override
+	public void setContext(AnnotationConfigApplicationContext context) {
+		this.context = context;
+	}
+
 
 }

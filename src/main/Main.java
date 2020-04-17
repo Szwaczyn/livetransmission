@@ -17,7 +17,7 @@ import utils.Status;
 
 public class Main {
 
-	private static int exitCode = 9;
+	private static int exitCode = 0;
 
 	public static void main(String[] args) {
 
@@ -25,7 +25,7 @@ public class Main {
 		ITeamDAO teamDAO = (ITeamDAO) context.getBean(TeamDAO.class);
 		IMatchDAO matchDAO = (IMatchDAO) context.getBean(MatchDAO.class);
 		IMatchExecution execman = (IMatchExecution) context.getBean(ExecutionManager.class);
-
+		execman.setContext(context);
 		Scanner in = new Scanner(System.in);
 		int action;
 		do {
@@ -125,6 +125,6 @@ public class Main {
 		System.out.println("2. Poka¿ zaplanowane mecze");
 		System.out.println("3. Zaplanuj mecz");
 		System.out.println("4. Rozpocznij mecz");
-		System.out.println("9. Wyjœcie");
+		System.out.println(exitCode + ". Wyjœcie");
 	}
 }

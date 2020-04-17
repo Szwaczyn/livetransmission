@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 import domainmodel.Team;
@@ -15,6 +16,7 @@ import interfaces.ITeamDAO;
 @Component
 public class TeamDAO implements ITeamDAO{
 
+	private AnnotationConfigApplicationContext context;
 	private EntityManager em;
 	
 	public TeamDAO(IDatabase idb) {
@@ -62,4 +64,11 @@ public class TeamDAO implements ITeamDAO{
 			return false;
 		}
 	}
+
+	@Override
+	public void setContext(AnnotationConfigApplicationContext context) {
+		this.context = context;
+	}
+	
+
 }

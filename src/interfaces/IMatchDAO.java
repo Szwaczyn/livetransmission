@@ -2,6 +2,8 @@ package interfaces;
 
 import java.util.List;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import domainmodel.Match;
 import domainmodel.Team;
 import utils.Status;
@@ -14,4 +16,5 @@ public interface IMatchDAO {
 	public Match getMatch(int id);
 	public Match newMatch(Team homeTeam, Team awayTeam);
 	public boolean finishMatch();
+	public void setContext(AnnotationConfigApplicationContext context);
 }

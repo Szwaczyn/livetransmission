@@ -2,18 +2,20 @@ package match.execution;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
 import domainmodel.Match;
 import interfaces.IMatchExecution;
 
-public class ExectuionManager implements IMatchExecution {
+@Component
+@Primary
+public class ExecutionManager implements IMatchExecution {
 
 	private static int exitCode = 5;
 
 	private Match match;
-
-	public ExectuionManager(Match match) {
-		this.match = match;
-	}
 
 	@Override
 	public void beginMatch() {

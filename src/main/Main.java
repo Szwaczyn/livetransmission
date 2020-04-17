@@ -10,8 +10,9 @@ import dao.TeamDAO;
 import domainmodel.Match;
 import domainmodel.Team;
 import interfaces.IMatchDAO;
+import interfaces.IMatchExecution;
 import interfaces.ITeamDAO;
-import match.execution.ExectuionManager;
+import match.execution.ExecutionManager;
 import utils.Status;
 
 public class Main {
@@ -23,6 +24,7 @@ public class Main {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(utils.Configuration.class);
 		ITeamDAO teamDAO = (ITeamDAO) context.getBean(TeamDAO.class);
 		IMatchDAO matchDAO = (IMatchDAO) context.getBean(MatchDAO.class);
+		IMatchExecution execman = (IMatchExecution) context.getBean(ExecutionManager.class);
 
 		Scanner in = new Scanner(System.in);
 		int action;
@@ -100,8 +102,8 @@ public class Main {
 						}
 						System.out.println("");
 						
-						ExectuionManager exeman = new ExectuionManager(matches.get(Integer.parseInt(in.nextLine()) - 1));
-						exeman.beginMatch();
+						execman.setMatch(matches.get(Integer.parseInt(in.nextLine()) - 1));
+						execman.beginMatch();
 					}
 						break;
 					}

@@ -88,7 +88,16 @@ public class Main {
 						break;
 
 					case 4: {
-						
+						List<Match> matches = matchDAO.getMatch(Status.notStarted);
+
+						int iterator = 1;
+
+						System.out.println("");
+						for (Match m : matches) {
+							System.out.println(iterator + ". " + m.getHomeTeam().getName() + " - " + m.getAwayTeam().getName());
+							iterator++;
+						}
+						System.out.println("");
 					}
 						break;
 					}

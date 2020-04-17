@@ -1,6 +1,7 @@
 package domainmodel;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -34,6 +35,14 @@ public class Match implements Serializable {
 	@Column(name = "finished")
 	private boolean finished;
 	
+	@Column(name = "begin_date")
+	private Date beginDate;
+	
+	/*
+	@OneToMany
+	@JoinColumn(name="comments")
+	private List<Comment> comments;
+	*/
 	public Match() {
 		this.started = false;
 		this.finished = false;
@@ -97,4 +106,22 @@ public class Match implements Serializable {
 		this.finished = finished;
 	}
 
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+	
+	
+/*
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+*/
 }

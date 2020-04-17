@@ -1,17 +1,32 @@
 package domainmodel;
 
+import java.io.Serializable;
+
+import javax.annotation.processing.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="comment")
-public class Comment {
+import com.sun.source.doctree.SerialDataTree;
 
-	@OneToMany
+@Entity
+@Table(name = "comment")
+public class Comment implements Serializable {
+
+	@Id
+	@GeneratedValue
+	@Column(name = "id_comment", unique = true)
+	private int id;
+
+	@ManyToOne
+	@JoinColumn(name = "commentMatch")
 	private Match match;
-	
+
 	@Column(name = "minute")
 	private int minute;
 
@@ -41,6 +56,13 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 }

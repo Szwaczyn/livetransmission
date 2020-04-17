@@ -47,7 +47,7 @@ public class Main {
 
 					case 2: {
 						List<Match> matches = matchDAO.getMatch(Status.notStarted);
-								
+
 						int iterator = 1;
 
 						System.out.println("");
@@ -62,7 +62,7 @@ public class Main {
 					case 3: {
 						List<Team> teams = teamDAO.getTeam();
 						int iterator = 1;
-						
+
 						System.out.println("Gospodarze:");
 						for (Team t : teams) {
 							System.out.println(iterator + ". " + t.getName());
@@ -73,17 +73,22 @@ public class Main {
 						Team homeTeam = teams.get(Integer.parseInt(in.nextLine()) - 1);
 						iterator = 1;
 						teams.remove(homeTeam);
-						
+
 						System.out.println("Goœcie:");
 						for (Team t : teams) {
 							System.out.println(iterator + ". " + t.getName());
 							iterator++;
 						}
 						System.out.println("");
-						
+
 						Team awayTeam = teams.get(Integer.parseInt(in.nextLine()) - 1);
-						
+
 						Match match = matchDAO.newMatch(homeTeam, awayTeam);
+					}
+						break;
+
+					case 4: {
+						
 					}
 						break;
 					}

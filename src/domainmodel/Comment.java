@@ -24,7 +24,7 @@ public class Comment implements Serializable {
 	private int id;
 
 	@ManyToOne
-	@JoinColumn(name = "commentMatch")
+	@JoinColumn(name = "comment_match")
 	private Match match;
 
 	@Column(name = "minute")

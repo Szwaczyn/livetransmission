@@ -11,6 +11,7 @@ import domainmodel.Match;
 import domainmodel.Team;
 import interfaces.IMatchDAO;
 import interfaces.ITeamDAO;
+import match.execution.ExectuionManager;
 import utils.Status;
 
 public class Main {
@@ -98,6 +99,9 @@ public class Main {
 							iterator++;
 						}
 						System.out.println("");
+						
+						ExectuionManager exeman = new ExectuionManager(matches.get(Integer.parseInt(in.nextLine()) - 1));
+						exeman.beginMatch();
 					}
 						break;
 					}

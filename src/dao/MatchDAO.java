@@ -109,4 +109,20 @@ public class MatchDAO implements IMatchDAO {
 		this.context = context;
 	}
 
+	@Override
+	public boolean save(Match match) {
+		EntityTransaction et = em.getTransaction();
+		
+		try {
+			et.begin();
+			em.persist(match);
+			et.commit();
+			return true;
+		} catch (Exception e) {
+			et.rollback();
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

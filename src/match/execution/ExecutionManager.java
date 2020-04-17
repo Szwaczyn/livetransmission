@@ -44,6 +44,7 @@ public class ExecutionManager implements IMatchExecution {
 
 				showMenu();
 				action = Integer.parseInt(in.nextLine());
+				MatchDAO matchDAO = (MatchDAO) context.getBean(MatchDAO.class);
 
 				switch (action) {
 
@@ -60,10 +61,12 @@ public class ExecutionManager implements IMatchExecution {
 							code = Integer.parseInt(content);
 							if (code == 1) {
 								match.setScoreHome(match.getScoreHome() + 1);
+								matchDAO.save(match);
 								content = "Gol zdobyty przez dru¿yne " + match.getHomeTeam().getName();
 								System.out.println(content);
 							} else if (code == 2) {
 								match.setScoreAway(match.getScoreAway() + 1);
+								matchDAO.save(match);
 								content = "Gol zdobyty przez dru¿yne " + match.getAwayTeam().getName();
 								System.out.println(content);
 							}
@@ -83,7 +86,7 @@ public class ExecutionManager implements IMatchExecution {
 				}
 					break;
 				case 2: {
-					MatchDAO matchDAO = (MatchDAO)context.getBean(MatchDAO.class);
+
 					matchDAO.finishMatch(match);
 					action = exitCode;
 				}

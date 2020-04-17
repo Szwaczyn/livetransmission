@@ -15,6 +15,7 @@ public interface IMatchDAO {
 	public List<Match> getMatch(Team team);
 	public Match getMatch(int id);
 	public Match newMatch(Team homeTeam, Team awayTeam);
+	public boolean save(Match match);
 	public void setContext(AnnotationConfigApplicationContext context);
 	boolean finishMatch(Match match);
 }

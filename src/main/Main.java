@@ -26,7 +26,7 @@ public class Main {
 		IMatchDAO matchDAO = (IMatchDAO) context.getBean(MatchDAO.class);
 		IMatchExecution execman = (IMatchExecution) context.getBean(ExecutionManager.class);
 		execman.setContext(context);
-		
+
 		Scanner in = new Scanner(System.in);
 		int action;
 		do {
@@ -98,13 +98,27 @@ public class Main {
 
 						System.out.println("");
 						for (Match m : matches) {
-							System.out.println(iterator + ". " + m.getHomeTeam().getName() + " - " + m.getAwayTeam().getName());
+							System.out.println(
+									iterator + ". " + m.getHomeTeam().getName() + " - " + m.getAwayTeam().getName());
 							iterator++;
 						}
 						System.out.println("");
-						
+
 						execman.setMatch(matches.get(Integer.parseInt(in.nextLine()) - 1));
 						execman.beginMatch();
+					}
+						break;
+					case 5: {
+						List<Match> matches = matchDAO.getMatch(Status.Finished);
+						
+						int iterator = 1;
+
+						System.out.println("");
+						for (Match m : matches) {
+							System.out.println(m.getHomeTeam().getName() +" " + m.getScoreHome() + ":" + m.getScoreAway() + " " + m.getAwayTeam().getName());
+							iterator++;
+						}
+						System.out.println("");
 					}
 						break;
 					}
@@ -126,6 +140,7 @@ public class Main {
 		System.out.println("2. Poka¿ zaplanowane mecze");
 		System.out.println("3. Zaplanuj mecz");
 		System.out.println("4. Rozpocznij mecz");
+		System.out.println("5. Poka¿ rozegrane mecze");
 		System.out.println(exitCode + ". Wyjœcie");
 	}
 }

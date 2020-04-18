@@ -3,7 +3,6 @@ package match.execution;
 import java.util.List;
 import java.util.Scanner;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -27,7 +26,6 @@ public class ExecutionManager implements IMatchExecution {
 	public void beginMatch() {
 
 		if (this.match != null) {
-			this.match.setStarted(true);
 			matchManager();
 		} else {
 			System.out.println("Brak meczu do rozpoczêcia");
@@ -45,7 +43,8 @@ public class ExecutionManager implements IMatchExecution {
 				showMenu();
 				action = Integer.parseInt(in.nextLine());
 				MatchDAO matchDAO = (MatchDAO) context.getBean(MatchDAO.class);
-
+				matchDAO.beginMatch(match);
+				
 				switch (action) {
 
 				case 1: {

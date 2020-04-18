@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -69,7 +70,7 @@ public class MatchDAO implements IMatchDAO {
 	public boolean finishMatch(Match match) {
 		match.setFinished(true);
 		EntityTransaction et = em.getTransaction();
-		
+
 		try {
 			et.begin();
 			em.persist(match);
@@ -80,6 +81,19 @@ public class MatchDAO implements IMatchDAO {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public boolean beginMatch(Match match) {
+		match.setStarted(true);
+
+		if (match.getBeginDate() == null)
+			match.setBeginDate(new Date());
+
+		if (save(match)) {
+			return true;
+		} else
+			return false;
 	}
 
 	@Override
@@ -112,7 +126,7 @@ public class MatchDAO implements IMatchDAO {
 	@Override
 	public boolean save(Match match) {
 		EntityTransaction et = em.getTransaction();
-		
+
 		try {
 			et.begin();
 			em.persist(match);

@@ -18,4 +18,5 @@ public interface IMatchDAO {
 	public boolean save(Match match);
 	public void setContext(AnnotationConfigApplicationContext context);
 	boolean finishMatch(Match match);
+	boolean beginMatch(Match match);
 }

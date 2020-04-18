@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -26,6 +27,10 @@ public class CommentDAO implements ICommentDAO {
 	@Override
 	public boolean addComment(Comment comment) {
 		EntityTransaction et = this.em.getTransaction();
+		Match match = comment.getMatch();
+		long minute = (new Date().getTime() - match.getBeginDate().getTime()) / (1000 * 60);
+		comment.setMinute((int)minute);
+		
 		try {
 			et.begin();
 			em.persist(comment);
@@ -40,9 +45,8 @@ public class CommentDAO implements ICommentDAO {
 	@Override
 	public List<Comment> getComment(Match match) {
 		List<Comment> comments = em.createQuery("SELECT c FROM Comment c WHERE match = :match")
-				.setParameter("match", match)
-				.getResultList();
-		
+				.setParameter("match", match).getResultList();
+
 		return comments;
 	}
 
@@ -50,6 +54,5 @@ public class CommentDAO implements ICommentDAO {
 	public void setContext(AnnotationConfigApplicationContext context) {
 		this.context = context;
 	}
-
 
 }
